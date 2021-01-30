@@ -16,6 +16,7 @@ import {
   View,
   Text,
   StatusBar,
+  Button,
 } from 'react-native';
 
 import {
@@ -25,54 +26,62 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {Navigation} from 'react-native-navigation';
+import {screenIds} from './src/screens';
 
 declare const global: {HermesInternal: null | {}};
 
-const App = () => {
+type Props = {
+  componentId: string;
+};
+
+const App = (props: Props) => {
+  const onShowModalPress = async () => {
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: screenIds.LOGIN_SCREEN,
+              passProps: {
+                text: 'stack with one child',
+              },
+              options: {
+                topBar: {
+                  title: {
+                    text: 'Modal',
+                  },
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
+  };
+
+  const onPushScreenPress = () => {
+    console.log(props.componentId);
+    Navigation.push(props.componentId, {
+      component: {
+        name: screenIds.REGISTER_SCREEN,
+        options: {
+          topBar: {
+            title: {
+              text: 'Register Screen',
+            },
+          },
+        },
+      },
+    });
+  };
+
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <SafeAreaView>
+      <Text>Hello</Text>
+      <Button title={'Show modal'} onPress={onShowModalPress} />
+      <Button title={'Push screen'} onPress={onPushScreenPress} />
+    </SafeAreaView>
   );
 };
 

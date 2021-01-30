@@ -3,6 +3,11 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <ReactNativeNavigation/ReactNativeNavigation.h>
+
+#if RCT_DEV
+#import <React/RCTDevLoadingView.h>
+#endif
 
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
@@ -32,6 +37,9 @@ static void InitializeFlipper(UIApplication *application) {
 //#endif
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+  #if RCT_DEV
+    [bridge moduleForClass:[RCTDevLoadingView class]];
+  #endif
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"ReactNativeAppTemplate"
                                             initialProperties:nil];
@@ -43,6 +51,7 @@ static void InitializeFlipper(UIApplication *application) {
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  [ReactNativeNavigation bootstrapWithDelegate:self launchOptions:launchOptions];
   return YES;
 }
 
@@ -53,6 +62,10 @@ static void InitializeFlipper(UIApplication *application) {
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+}
+
+- (NSArray<id<RCTBridgeModule>> *)extraModulesForBridge:(RCTBridge *)bridge {
+  return [ReactNativeNavigation extraModulesForBridge:bridge];
 }
 
 @end
