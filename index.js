@@ -2,13 +2,11 @@
  * @format
  */
 
-import {AppRegistry, Button, SafeAreaView, Text} from 'react-native';
 import App from './App';
-import {name as appName} from './app.json';
 import {Navigation} from 'react-native-navigation';
-import {screenIds, SCREENS} from './src/screens';
-import React from 'react';
+import {SCREENS} from './src/screens';
 
+//Register root screen
 Navigation.registerComponent('Home', () => App);
 
 //Register Screens
@@ -26,6 +24,13 @@ Navigation.events().registerAppLaunchedListener(async () => {
           {
             component: {
               name: 'Home',
+              options: {
+                topBar: {
+                  title: {
+                    text: 'Home Screen',
+                  },
+                },
+              },
             },
           },
         ],

@@ -1,5 +1,3 @@
-import React from 'react';
-
 type Props = {
   email: string;
   password: string;
