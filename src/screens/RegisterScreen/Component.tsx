@@ -1,14 +1,42 @@
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import {Navigation} from 'react-native-navigation';
 import {screenIds} from '../index';
-import {Button} from 'react-native-ui-lib/core';
+import {Button, View} from 'react-native-ui-lib/core';
+import {TextField} from 'react-native-ui-lib';
+import {useHooks} from './useHooks';
 
 const Component = () => {
+  const {
+    onRegisterButtonPress,
+    name,
+    email,
+    password,
+    setName,
+    setEmail,
+    setPassword,
+  } = useHooks();
+
   return (
-    <SafeAreaView>
-      <Text>Register</Text>
-      <Button label={'Sign up'} onPress={() => console.log('Handle sign up')} />
+    <SafeAreaView
+      style={{
+        marginVertical: 20,
+        marginHorizontal: 20,
+      }}>
+      <View>
+        <TextField title={'Name'} defaultValue={name} onChangeText={setName} />
+        <TextField
+          title={'Email'}
+          defaultValue={email}
+          onChangeText={setEmail}
+        />
+        <TextField
+          title={'Password'}
+          defaultValue={password}
+          onChangeText={setPassword}
+        />
+      </View>
+      <Button label={'Sign Up'} onPress={onRegisterButtonPress} />
     </SafeAreaView>
   );
 };
