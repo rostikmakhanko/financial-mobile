@@ -1,6 +1,6 @@
 import * as remx from 'remx';
 
-const state = remx.state({name: '', surname: '', email: ''});
+const state = remx.state({name: '', surname: '', email: '', balance: 0});
 
 export const setters = remx.setters({
   setName(name: string) {
@@ -12,10 +12,14 @@ export const setters = remx.setters({
   setEmail(email: string) {
     state.email = email;
   },
+  seBalance(balance: number) {
+    state.balance = balance;
+  },
 });
 
 export const getters = remx.getters({
   getName: () => state.name,
   getSurname: () => state.surname,
   getEmail: () => state.email,
+  getBalance: () => state.balance,
 });

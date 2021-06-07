@@ -9,6 +9,10 @@ export const SCREENS = {
     id: 'LoginScreen',
     generator: () => require('./LoginScreen').default,
   },
+  TRANSACTIONS_SCREEN: {
+    id: 'TransactionsScreen',
+    generator: () => require('./TransactionsScreen').default,
+  },
 };
 
 export const screenIds = _.mapValues(SCREENS, ({id}: {id: any}) => id) as {

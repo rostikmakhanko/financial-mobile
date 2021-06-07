@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {signUp} from '../../actions/signUp';
 
 export const useHooks = () => {
   const [name, setName] = useState('');
@@ -6,9 +7,18 @@ export const useHooks = () => {
   const [password, setPassword] = useState('');
   console.log(name);
 
-  const onRegisterButtonPress = () => {
-    console.log('onSignInButtonPress');
+  const onRegisterButtonPress = async () => {
+    console.log('onSignUpButtonPress');
+    await signUp({name, email, password});
   };
 
-  return {onRegisterButtonPress, name, email, password, setName, setEmail, setPassword};
+  return {
+    onRegisterButtonPress,
+    name,
+    email,
+    password,
+    setName,
+    setEmail,
+    setPassword,
+  };
 };

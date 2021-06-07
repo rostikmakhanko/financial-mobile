@@ -1,4 +1,5 @@
 import {firebaseApiKey} from '../../keys/firebase';
+import {setters as userSetters} from '../stores/user';
 
 const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${firebaseApiKey}`;
 
@@ -18,6 +19,10 @@ export const signUp = async ({name, email, password}: Props) => {
         returnSecureToken: true,
       }),
     });
+    console.log(response.json());
+    userSetters.setName(name);
+    userSetters.setEmail(email);
+    userSetters.seBalance(0);
   } catch (err) {
     console.log('[signUp] error', err);
   }
